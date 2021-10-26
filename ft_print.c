@@ -18,9 +18,6 @@ void	ft_printf_repeat(int *len, char c, int count)
 		*len += write(1, &c, 1);
 }
 
-//OK: left spaces padding
-//OK: zero padding
-//FIXME: right spaces
 int	ft_printf_n(char *bef, char *str, int n, t_printf_opt *opt)
 {
 	int	len;
@@ -30,12 +27,9 @@ int	ft_printf_n(char *bef, char *str, int n, t_printf_opt *opt)
 	blen = 0;
 	if (bef)
 		blen = ft_strlen(bef);
-	//if (opt->flags & PRINTF_FLAG_ALTR && opt->width > opt->length)
-	//	ft_printf_repeat(&len, ' ', opt->width - n - blen - 1);
-	//else if (opt->flags & PRINTF_FLAG_ZERO && opt->width > opt->length && opt->width > 0 && opt->length >= 0)
-	//	ft_printf_repeat(&len, ' ', opt->width - opt->length - blen);
 	if (!(opt->flags & (PRINTF_FLAG_ZERO | PRINTF_FLAG_LEFT))
-		|| (opt->flags & PRINTF_FLAG_ZERO && opt->width > opt->length && opt->width > 0 && opt->length > 0))
+		|| (opt->flags & PRINTF_FLAG_ZERO && opt->width > opt->length
+			&& opt->width > 0 && opt->length > 0))
 		ft_printf_repeat(&len, ' ', opt->width - blen - ft_max(n, opt->length));
 	if (bef)
 		len += write(1, bef, blen);

@@ -17,8 +17,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int	ft_min(int a, int b);
-int	ft_max(int a, int b);
+int		ft_min(int a, int b);
+int		ft_max(int a, int b);
 
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);

@@ -51,7 +51,7 @@ t_printf_opt	ft_printf_parse_opt(const char **s)
 	return (opt);
 }
 
-int	ft_printf_parse(const char **s, /*unsigned int *i, */va_list *args)
+int	ft_printf_parse(const char **s, va_list *args)
 {
 	t_printf_opt	opt;
 
@@ -75,8 +75,6 @@ int	ft_printf_parse(const char **s, /*unsigned int *i, */va_list *args)
 	else if (**s == 'p')
 		return (ft_printf_ptr(va_arg(*args, unsigned long long),
 				"0123456789abcdef", &opt));
-	//*i = 1;
-	//(*s)--;
 	return (0);
 }
 
@@ -97,7 +95,7 @@ int	ft_printf(const char *s, ...)
 		{
 			len += write(1, s - i - 1, i);
 			i = 0;
-			len += ft_printf_parse(&s, /*&i, */&args);
+			len += ft_printf_parse(&s, &args);
 			s++;
 		}
 	}
