@@ -6,7 +6,7 @@
 /*   By: mberger- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 14:53:30 by mberger-          #+#    #+#             */
-/*   Updated: 2021/10/25 13:39:38 by mberger-         ###   ########.fr       */
+/*   Updated: 2021/11/05 08:23:01 by mberger-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,20 @@ typedef struct s_printf_opt {
 	enum e_printf_flags	flags;
 }	t_printf_opt;
 
-int	ft_printf(const char *s, ...);
-int	ft_printf_uint(char *bef, unsigned int n, t_printf_opt *opt);
-int	ft_printf_int(int nb, t_printf_opt *opt);
-int	ft_printf_char(char c, t_printf_opt *opt);
-int	ft_printf_str(char *s, t_printf_opt *opt);
-int	ft_printf_base16(unsigned long n, char *base, t_printf_opt *opt);
-int	ft_printf_ptr(unsigned long long n, char *base, t_printf_opt *opt);
+t_printf_opt	ft_printf_init_opt(void);
+t_printf_opt	ft_printf_parse_opt(const char **s);
 
-int	ft_printf_n(char *bef, char *str, int n, t_printf_opt *opt);
-int	ft_printf_s(char *str, int n, t_printf_opt *opt);
+int				ft_printf(const char *s, ...);
+int				ft_printf_uint(char *bef, unsigned int n, t_printf_opt *opt);
+int				ft_printf_int(int nb, t_printf_opt *opt);
+int				ft_printf_char(char c, t_printf_opt *opt);
+int				ft_printf_str(char *s, t_printf_opt *opt);
+int				ft_printf_base16(unsigned long n, char *base,
+					t_printf_opt *opt);
+int				ft_printf_ptr(unsigned long long n, char *base,
+					t_printf_opt *opt);
+
+int				ft_printf_n(char *bef, char *str, int n, t_printf_opt *opt);
+int				ft_printf_s(char *str, int n, t_printf_opt *opt);
 
 #endif

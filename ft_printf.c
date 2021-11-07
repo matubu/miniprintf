@@ -6,7 +6,7 @@
 /*   By: mberger- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 13:55:41 by mberger-          #+#    #+#             */
-/*   Updated: 2021/10/25 13:38:40 by mberger-         ###   ########.fr       */
+/*   Updated: 2021/11/04 11:23:34 by mberger-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,40 +22,11 @@ t_printf_opt	ft_printf_init_opt(void)
 	return (opt);
 }
 
-t_printf_opt	ft_printf_parse_opt(const char **s)
-{
-	t_printf_opt	opt;
-
-	opt = ft_printf_init_opt();
-	while (1)
-	{
-		if (**s == '#')
-			opt.flags |= PRINTF_FLAG_ALTR;
-		else if (**s == '+')
-			opt.flags |= PRINTF_FLAG_PLUS;
-		else if (**s == ' ')
-			opt.flags |= PRINTF_FLAG_SPAC;
-		else if (**s == '-')
-			opt.flags |= PRINTF_FLAG_LEFT;
-		else if (**s == '0')
-			opt.flags |= PRINTF_FLAG_ZERO;
-		else
-			break ;
-		(*s)++;
-	}
-	while (ft_isdigit(**s))
-		opt.width = opt.width * 10 + *(*s)++ - '0';
-	if (**s == '.' && (*s)++ && opt.length++)
-		while (ft_isdigit(**s))
-			opt.length = opt.length * 10 + *(*s)++ - '0';
-	return (opt);
-}
-
 int	ft_printf_parse(const char **s, va_list *args)
 {
 	t_printf_opt	opt;
 
-	opt = FT_PRINTF_PARSE(s);
+	opt = ft_printf_parse_opt(s);
 	if (**s == '%')
 		return (write(1, "%", 1));
 	else if (**s == 'c')

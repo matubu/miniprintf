@@ -1,22 +1,32 @@
 NAME = libftprintf.a
 FILES = printf num str print
-OUT = $(foreach file,$(FILES),ft_$(file).o)
+
+OBJ_BOTH = $(foreach file,$(FILES),ft_$(file).o)
+OBJ_MANDATORY = parse.o
+OBJ_BONUS = parse_bonus.o
+
 FLAGS = -Wall -Wextra -Werror
 
-all: FLAGS := $(FLAGS) -D 'FT_PRINTF_PARSE(s)=(ft_printf_init_opt())'
-all: $(NAME)
+all: OBJ := $(OBJ_BOTH) $(OBJ_MANDATORY)
+all: OBJ_UNUSED := $(OBJ_BONUS)
+all: $(OBJ_MANDATORY) $(NAME)
+
+bonus: OBJ := $(OBJ_BOTH) $(OBJ_BONUS)
+bonus: OBJ_UNUSED := $(OBJ_MANDATORY)
+bonus: $(OBJ_BONUS) $(NAME)
 
 %.o: %.c
+	rm -rf $(NAME) $(OBJ_UNUSED)
 	gcc $(FLAGS) -c $^ -o $@
 
-$(NAME): $(OUT)
+$(NAME): $(OBJ_BOTH)
 	$(MAKE) -C libft
 	cp libft/libft.a $(NAME)
-	ar rcs $@ $^
+	ar rcs $@ $(OBJ)
 
 clean:
 	$(MAKE) clean -C libft
-	rm -rf $(OUT)
+	rm -rf $(OBJ_BOTH) $(OBJ_MANDATORY) $(OBJ_BONUS)
 
 fclean: clean
 	$(MAKE) fclean -C libft
@@ -24,7 +34,4 @@ fclean: clean
 
 re: fclean all
 
-bonus: FLAGS := $(FLAGS) -D 'FT_PRINTF_PARSE(s)=(ft_printf_parse_opt(s))'
-bonus: $(NAME)
-
-.PHONY: all clean fclean re bonus
+.PHONY: all bonus clean fclean re
